@@ -1,11 +1,11 @@
 Metadata-Version: 2.4
-Name: pyrogram-navy
+Name: pyrogram-zeeb
 Version: 2.0.208
 Summary: Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots (Navy Fork)
-Home-page: https://github.com/navycodes/pyrogram-navy
-Download-URL: https://github.com/navycodes/pyrogram-navy/releases/latest
-Author: deylin
-Author-email: deylinarea@gmail.com
+Home-page: https://github.com/ZeebFly/pyrogram-zeeb
+Download-URL: https://github.com/ZeebFly/pyrogram-zeeb/releases/latest
+Author: ZeebFly
+Author-email: zeebrobot@gmail.com
 License: LGPLv3
 Keywords: telegram chat messenger mtproto api client library python
 Classifier: Development Status :: 5 - Production/Stable
