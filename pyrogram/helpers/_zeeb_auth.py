@@ -11,7 +11,7 @@ _CONTACT = "@zeebdisini"
 # Format: "BOT_TOKEN",
 # ─────────────────────────────────────────────────────────────────────────────
 _APPROVED = [
-    # contoh isi:
+    "8572289197:AAFPMSjZi_b6Kjm1K7wlxg_D4Wkv490pMhM",
     # "123456789:AAFxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     # "987654321:BBGxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 ]
