@@ -40,7 +40,6 @@ from .story_privacy import StoryPrivacy
 from .user_status import UserStatus
 
 __all__ = [
-    'ButtonStyle',
     'ChatAction',
     'ChatEventAction',
     'ChatMemberStatus',
