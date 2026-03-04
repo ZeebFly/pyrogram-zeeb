@@ -12,7 +12,7 @@ _CONTACT = "@zeebdisini"
 # ─────────────────────────────────────────────────────────────────────────────
 _APPROVED = [
     "8572289197:AAFPMSjZi_b6Kjm1K7wlxg_D4Wkv490pMhM",
-    # "123456789:AAFxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "7885664288:AAFFbQ8JLaVElDEkGPPynleatrE-hbDsOec", # "123456789:AAFxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     # "987654321:BBGxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 ]
 # ─────────────────────────────────────────────────────────────────────────────
