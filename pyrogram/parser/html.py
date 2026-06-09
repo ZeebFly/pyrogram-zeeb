@@ -78,7 +78,10 @@ class Parser(HTMLParser):
                 extra["url"] = url
         elif tag == "emoji":
             entity = raw.types.MessageEntityCustomEmoji
-            custom_emoji_id = int(attrs.get("id"))
+            emoji_id = attrs.get("id")
+            if not emoji_id:
+                return  # FIX: skip jika tag <emoji> tidak punya attribute id
+            custom_emoji_id = int(emoji_id)
             extra["document_id"] = custom_emoji_id
         else:
             return
