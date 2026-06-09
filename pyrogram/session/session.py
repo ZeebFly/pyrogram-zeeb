@@ -59,7 +59,7 @@ class Result:
 class Session:
     START_TIMEOUT = 2
     WAIT_TIMEOUT = 15
-    SLEEP_THRESHOLD = 10
+    SLEEP_THRESHOLD = 20  # FIX: naikkan dari 10 → 20 agar FloodWait ≤20s auto-sleep di session level
     MAX_RETRIES = 10
     ACKS_THRESHOLD = 10
     PING_INTERVAL = 5
