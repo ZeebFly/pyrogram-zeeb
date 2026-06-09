@@ -54,7 +54,7 @@ class Dispatcher:
         self.locks_list = []
         self.error_handlers = []
 
-        self.updates_queue = asyncio.Queue()
+        self.updates_queue = asyncio.Queue(maxsize=2000)  # FIX: bounded queue — cegah memory leak saat update menumpuk
         self.groups = OrderedDict()
 
         async def message_parser(update, users, chats):
@@ -239,8 +239,13 @@ class Dispatcher:
         except Exception as e:
             log.exception(e)
             return
-        async with lock:
-            await self._dispatch_to_handlers(update, users, chats, parsed_update, handler_type)
+        # FIX: Hapus "async with lock" di sini.
+        # Lock lama menyebabkan semua handler_worker mengantre di belakang satu
+        # lock yang sama, sehingga N worker berjalan satu per satu = tidak ada
+        # konkurensi sama sekali. Dispatch aman tanpa lock karena asyncio
+        # cooperative multitasking dan add_handler/remove_handler sudah punya
+        # lock sendiri.
+        await self._dispatch_to_handlers(update, users, chats, parsed_update, handler_type)
 
 
     async def _dispatch_to_handlers(

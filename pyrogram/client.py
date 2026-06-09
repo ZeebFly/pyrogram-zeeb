@@ -736,7 +736,12 @@ class Client(Methods):
                                 users.update({u.id: u for u in diff.users})
                                 chats.update({c.id: c for c in diff.chats})
 
-                self.dispatcher.updates_queue.put_nowait((update, users, chats))
+                # FIX: gunakan try/except untuk handle QueueFull — jika queue penuh,
+                # drop update (lebih baik skip satu update daripada crash/exception)
+                try:
+                    self.dispatcher.updates_queue.put_nowait((update, users, chats))
+                except asyncio.QueueFull:
+                    log.warning("updates_queue full, dropping update: %s", type(update).__name__)
         elif isinstance(updates, (raw.types.UpdateShortMessage, raw.types.UpdateShortChatMessage)):
             diff = await self.invoke(
                 raw.functions.updates.GetDifference(
@@ -745,19 +750,28 @@ class Client(Methods):
             )
 
             if diff.new_messages:
-                self.dispatcher.updates_queue.put_nowait((
-                    raw.types.UpdateNewMessage(
-                        message=diff.new_messages[0],
-                        pts=updates.pts,
-                        pts_count=updates.pts_count,
-                    ),
-                    {u.id: u for u in diff.users},
-                    {c.id: c for c in diff.chats},
-                ))
+                try:
+                    self.dispatcher.updates_queue.put_nowait((
+                        raw.types.UpdateNewMessage(
+                            message=diff.new_messages[0],
+                            pts=updates.pts,
+                            pts_count=updates.pts_count,
+                        ),
+                        {u.id: u for u in diff.users},
+                        {c.id: c for c in diff.chats},
+                    ))
+                except asyncio.QueueFull:
+                    log.warning("updates_queue full, dropping UpdateShortMessage")
             elif diff.other_updates:  # The other_updates list can be empty
-                self.dispatcher.updates_queue.put_nowait((diff.other_updates[0], {}, {}))
+                try:
+                    self.dispatcher.updates_queue.put_nowait((diff.other_updates[0], {}, {}))
+                except asyncio.QueueFull:
+                    log.warning("updates_queue full, dropping other_update")
         elif isinstance(updates, raw.types.UpdateShort):
-            self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
+            try:
+                self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
+            except asyncio.QueueFull:
+                log.warning("updates_queue full, dropping UpdateShort")
         elif isinstance(updates, raw.types.UpdatesTooLong):
             log.info(updates)
 
