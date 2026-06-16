@@ -22,16 +22,25 @@ from .auto_name import AutoName
 
 
 class ButtonStyle(AutoName):
-    """Button style type enumeration used in :obj:`~pyrogram.types.KeyboardButton` and :obj:`~pyrogram.types.InlineKeyboardButton`."""
+    """Button color style for inline/keyboard buttons.
+
+    Used in :obj:`~pyrogram.types.InlineKeyboardButton` to set the button's background color.
+
+    Attributes:
+        DEFAULT: Default button style (no color override).
+        PRIMARY: Blue/primary button style.
+        DANGER: Red/danger button style.
+        SUCCESS: Green/success button style.
+    """
 
     DEFAULT = auto()
-    "The button has default style"
+    """Default button (no color)."""
 
     PRIMARY = auto()
-    "The button has dark blue color"
+    """Blue primary button."""
 
     DANGER = auto()
-    "The button has red color"
+    """Red danger button."""
 
     SUCCESS = auto()
-    "The button has green color"
+    """Green success button."""
