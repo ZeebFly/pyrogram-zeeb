@@ -45,7 +45,6 @@ class Dispatcher:
     CHOSEN_INLINE_RESULT_UPDATES = (raw.types.UpdateBotInlineSend,)
     CHAT_JOIN_REQUEST_UPDATES = (raw.types.UpdateBotChatInviteRequester,)
     NEW_STORY_UPDATES = (raw.types.UpdateStory,)
-    GUEST_CHAT_QUERY_UPDATES = (raw.types.UpdateBotGuestChatQuery,)
 
     def __init__(self, client: "pyrogram.Client"):
         self.client = client
@@ -139,8 +138,7 @@ class Dispatcher:
             Dispatcher.CHOSEN_INLINE_RESULT_UPDATES: chosen_inline_result_parser,
             Dispatcher.CHAT_MEMBER_UPDATES: chat_member_updated_parser,
             Dispatcher.CHAT_JOIN_REQUEST_UPDATES: chat_join_request_parser,
-            Dispatcher.NEW_STORY_UPDATES: story_parser,
-            Dispatcher.GUEST_CHAT_QUERY_UPDATES: message_parser
+            Dispatcher.NEW_STORY_UPDATES: story_parser
         }
 
         self.update_parsers = {key: value for key_tuple, value in self.update_parsers.items() for key in key_tuple}
@@ -209,8 +207,6 @@ class Dispatcher:
             finally:
                 for lock in self.locks_list:
                     lock.release()
-
-        self.loop.create_task(fn())
 
     async def handler_worker(self, lock: asyncio.Lock):
         while True:
