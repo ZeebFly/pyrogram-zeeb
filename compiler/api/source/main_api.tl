@@ -647,25 +647,26 @@ botCommand#c27ac8c7 command:string description:string = BotCommand;
 
 botInfo#36607333 flags:# has_preview_medias:flags.6?true user_id:flags.0?long description:flags.1?string description_photo:flags.4?Photo description_document:flags.5?Document commands:flags.2?Vector<BotCommand> menu_button:flags.3?BotMenuButton privacy_policy_url:flags.7?string app_settings:flags.8?BotAppSettings = BotInfo;
 
-keyboardButton#a2fa4880 text:string = KeyboardButton;
-keyboardButtonUrl#258aff05 text:string url:string = KeyboardButton;
-keyboardButtonCallback#35bbdb6b flags:# requires_password:flags.0?true text:string data:bytes = KeyboardButton;
-keyboardButtonRequestPhone#b16a6c29 text:string = KeyboardButton;
-keyboardButtonRequestGeoLocation#fc796b3f text:string = KeyboardButton;
-keyboardButtonSwitchInline#93b9fbb5 flags:# same_peer:flags.0?true text:string query:string peer_types:flags.1?Vector<InlineQueryPeerType> = KeyboardButton;
-keyboardButtonGame#50f41ccf text:string = KeyboardButton;
-keyboardButtonBuy#afd93fbb text:string = KeyboardButton;
-keyboardButtonUrlAuth#10b78d29 flags:# text:string fwd_text:flags.0?string url:string button_id:int = KeyboardButton;
+keyboardButton#a2fa4880 flags:# style:flags.10?KeyboardButtonStyle text:string = KeyboardButton;
+keyboardButtonUrl#258aff05 flags:# style:flags.10?KeyboardButtonStyle text:string url:string = KeyboardButton;
+keyboardButtonCallback#35bbdb6b flags:# requires_password:flags.0?true style:flags.10?KeyboardButtonStyle text:string data:bytes = KeyboardButton;
+keyboardButtonRequestPhone#b16a6c29 flags:# style:flags.10?KeyboardButtonStyle text:string = KeyboardButton;
+keyboardButtonRequestGeoLocation#fc796b3f flags:# style:flags.10?KeyboardButtonStyle text:string = KeyboardButton;
+keyboardButtonSwitchInline#93b9fbb5 flags:# same_peer:flags.0?true style:flags.10?KeyboardButtonStyle text:string query:string peer_types:flags.1?Vector<InlineQueryPeerType> = KeyboardButton;
+keyboardButtonGame#50f41ccf flags:# style:flags.10?KeyboardButtonStyle text:string = KeyboardButton;
+keyboardButtonBuy#afd93fbb flags:# style:flags.10?KeyboardButtonStyle text:string = KeyboardButton;
+keyboardButtonUrlAuth#10b78d29 flags:# style:flags.10?KeyboardButtonStyle text:string fwd_text:flags.0?string url:string button_id:int = KeyboardButton;
 inputKeyboardButtonUrlAuth#d02e7fd4 flags:# request_write_access:flags.0?true text:string fwd_text:flags.1?string url:string bot:InputUser = KeyboardButton;
-keyboardButtonRequestPoll#bbc7515d flags:# quiz:flags.0?Bool text:string = KeyboardButton;
+keyboardButtonRequestPoll#bbc7515d flags:# style:flags.10?KeyboardButtonStyle quiz:flags.0?Bool text:string = KeyboardButton;
 inputKeyboardButtonUserProfile#e988037b text:string user_id:InputUser = KeyboardButton;
-keyboardButtonUserProfile#308660c1 text:string user_id:long = KeyboardButton;
-keyboardButtonWebView#13767230 text:string url:string = KeyboardButton;
-keyboardButtonSimpleWebView#a0c0505c text:string url:string = KeyboardButton;
-keyboardButtonRequestPeer#53d7bfd8 text:string button_id:int peer_type:RequestPeerType max_quantity:int = KeyboardButton;
+keyboardButtonUserProfile#308660c1 flags:# style:flags.10?KeyboardButtonStyle text:string user_id:long = KeyboardButton;
+keyboardButtonWebView#13767230 flags:# style:flags.10?KeyboardButtonStyle text:string url:string = KeyboardButton;
+keyboardButtonSimpleWebView#a0c0505c flags:# style:flags.10?KeyboardButtonStyle text:string url:string = KeyboardButton;
+keyboardButtonRequestPeer#53d7bfd8 flags:# style:flags.10?KeyboardButtonStyle text:string button_id:int peer_type:RequestPeerType max_quantity:int = KeyboardButton;
 inputKeyboardButtonRequestPeer#c9662d05 flags:# name_requested:flags.0?true username_requested:flags.1?true photo_requested:flags.2?true text:string button_id:int peer_type:RequestPeerType max_quantity:int = KeyboardButton;
-keyboardButtonCopy#75d2698e text:string copy_text:string = KeyboardButton;
+keyboardButtonCopy#75d2698e flags:# style:flags.10?KeyboardButtonStyle text:string copy_text:string = KeyboardButton;
 
+keyboardButtonStyle#4fdd3430 flags:# bg_primary:flags.0?true bg_danger:flags.1?true bg_success:flags.2?true icon:flags.3?long = KeyboardButtonStyle;
 keyboardButtonRow#77608b83 buttons:Vector<KeyboardButton> = KeyboardButtonRow;
 
 replyKeyboardHide#a03e5b85 flags:# selective:flags.2?true = ReplyMarkup;
