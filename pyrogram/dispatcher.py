@@ -45,6 +45,7 @@ class Dispatcher:
     CHOSEN_INLINE_RESULT_UPDATES = (raw.types.UpdateBotInlineSend,)
     CHAT_JOIN_REQUEST_UPDATES = (raw.types.UpdateBotChatInviteRequester,)
     NEW_STORY_UPDATES = (raw.types.UpdateStory,)
+    GUEST_CHAT_QUERY_UPDATES = (raw.types.UpdateBotGuestChatQuery,)
 
     def __init__(self, client: "pyrogram.Client"):
         self.client = client
@@ -54,7 +55,7 @@ class Dispatcher:
         self.locks_list = []
         self.error_handlers = []
 
-        self.updates_queue = asyncio.Queue(maxsize=2000)  # FIX: bounded queue — cegah memory leak saat update menumpuk
+        self.updates_queue = asyncio.Queue()
         self.groups = OrderedDict()
 
         async def message_parser(update, users, chats):
@@ -138,7 +139,8 @@ class Dispatcher:
             Dispatcher.CHOSEN_INLINE_RESULT_UPDATES: chosen_inline_result_parser,
             Dispatcher.CHAT_MEMBER_UPDATES: chat_member_updated_parser,
             Dispatcher.CHAT_JOIN_REQUEST_UPDATES: chat_join_request_parser,
-            Dispatcher.NEW_STORY_UPDATES: story_parser
+            Dispatcher.NEW_STORY_UPDATES: story_parser,
+            Dispatcher.GUEST_CHAT_QUERY_UPDATES: message_parser
         }
 
         self.update_parsers = {key: value for key_tuple, value in self.update_parsers.items() for key in key_tuple}
@@ -208,6 +210,8 @@ class Dispatcher:
                 for lock in self.locks_list:
                     lock.release()
 
+        self.loop.create_task(fn())
+
     async def handler_worker(self, lock: asyncio.Lock):
         while True:
             packet = await self.updates_queue.get()
@@ -239,13 +243,8 @@ class Dispatcher:
         except Exception as e:
             log.exception(e)
             return
-        # FIX: Hapus "async with lock" di sini.
-        # Lock lama menyebabkan semua handler_worker mengantre di belakang satu
-        # lock yang sama, sehingga N worker berjalan satu per satu = tidak ada
-        # konkurensi sama sekali. Dispatch aman tanpa lock karena asyncio
-        # cooperative multitasking dan add_handler/remove_handler sudah punya
-        # lock sendiri.
-        await self._dispatch_to_handlers(update, users, chats, parsed_update, handler_type)
+        async with lock:
+            await self._dispatch_to_handlers(update, users, chats, parsed_update, handler_type)
 
 
     async def _dispatch_to_handlers(
