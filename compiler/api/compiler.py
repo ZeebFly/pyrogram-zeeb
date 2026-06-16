@@ -258,10 +258,11 @@ def start(format: bool = False):
 
             args = ARGS_RE.findall(line)
 
-            # Fix arg name being "self" (reserved python keyword)
+            # Fix arg names being Python reserved keywords
+            KEYWORD_RENAMES = {"self": "is_self", "from": "from_peer"}
             for i, item in enumerate(args):
-                if item[0] == "self":
-                    args[i] = ("is_self", item[1])
+                if item[0] in KEYWORD_RENAMES:
+                    args[i] = (KEYWORD_RENAMES[item[0]], item[1])
 
             combinator = Combinator(
                 section=section,
