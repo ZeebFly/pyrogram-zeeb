@@ -59,13 +59,13 @@ class Start:
 
         try:
             # zeeb framework auth
-            try:
-                from pyrogram.helpers._zeeb_auth import verify_bot
-                verify_bot(getattr(self, "bot_token", None))
-            except SystemExit:
-                raise
-            except Exception:
-                pass
+            #try:
+                #from pyrogram.helpers._zeeb_auth import verify_bot
+                #verify_bot(getattr(self, "bot_token", None))
+            #except SystemExit:
+                #raise
+            #except Exception:
+                #pass
 
             if not is_authorized:
                 await self.authorize()
