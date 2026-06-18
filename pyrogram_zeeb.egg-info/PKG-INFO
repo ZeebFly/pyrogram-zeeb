@@ -1,7 +1,7 @@
 Metadata-Version: 2.4
 Name: pyrogram-zeeb
 Version: 2.0.208
-Summary: Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots (Navy Fork)
+Summary: Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots (Zeeb Fork)
 Home-page: https://github.com/ZeebFly/pyrogram-zeeb
 Download-URL: https://github.com/ZeebFly/pyrogram-zeeb/releases/latest
 Author: ZeebFly
